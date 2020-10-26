@@ -85,6 +85,7 @@ func (u *UserController) SendEmail()  {
 			u.Data["json"] = utils.Response(utils.FAIL, "邮件发送失败", err.Error())
 		} else {
 			if _, err := utils.RedisPool.Get().Do("SETEX", email, 60, captcha); err != nil{
+				logs.Error(err)
 				u.Data["json"] = utils.Response(utils.FAIL, "Redis异常", err.Error())
 			}
 			u.Data["json"] = utils.Response(utils.SUCCESS, "邮件发送成功", nil)
@@ -98,6 +99,7 @@ func (u *UserController) ResetPassword()  {
 	captcha := u.GetString("captcha")
 	newPassword := u.GetString("newPassword")
 	if realCaptcha, err := redis.String(utils.RedisPool.Get().Do("GET", email)); err != nil{
+		logs.Error(err)
 		u.Data["json"] = utils.Response(utils.FAIL, "Redis异常", err.Error())
 	} else {
 		if realCaptcha != "" {

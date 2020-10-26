@@ -23,6 +23,6 @@ func newPool() *redis.Pool {
 
 func init()  {
 	//logs
-	logs.SetLogger(logs.AdapterFile,`{"filename":"logs/error.log","level":7,"maxlines":0,"maxfiles":10,"MaxSize":104857600,"perm":"0770"`)
+	logs.SetLogger(logs.AdapterFile,`{"filename":"error.log","level":7,"maxlines":0,"maxsize":0,"daily":true,"maxdays":10}`)
 	logs.EnableFuncCallDepth(true)
 }
