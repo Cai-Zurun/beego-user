@@ -5,3 +5,4 @@
 - 注册：MD5(password+SALT)
 - 登录：JWT
 - 邮箱验证码：redis存储
+- ORM：gorm
